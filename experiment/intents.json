@@ -1,0 +1,100 @@
+{
+  "intents": [
+    {
+      "slug": "explain",
+      "label": "Explain a concept",
+      "topics": [
+        "quantum_computing",
+        "sourdough_baking",
+        "compound_interest",
+        "how_vaccines_work",
+        "machine_learning_basics",
+        "supply_and_demand"
+      ]
+    },
+    {
+      "slug": "brainstorm",
+      "label": "Brainstorm ideas",
+      "topics": [
+        "birthday_party",
+        "side_hustle",
+        "home_renovation",
+        "date_night",
+        "weekend_hobby",
+        "gift_ideas"
+      ]
+    },
+    {
+      "slug": "draft",
+      "label": "Draft a message",
+      "topics": [
+        "complaint_email",
+        "thank_you_note",
+        "cover_letter",
+        "meeting_request",
+        "apology_message",
+        "recommendation_request"
+      ]
+    },
+    {
+      "slug": "compare",
+      "label": "Compare options",
+      "topics": [
+        "phone_plans",
+        "diet_approaches",
+        "programming_languages",
+        "streaming_services",
+        "exercise_routines",
+        "coffee_brewing_methods"
+      ]
+    },
+    {
+      "slug": "summarize",
+      "label": "Summarize a topic",
+      "topics": [
+        "climate_change",
+        "sleep_science",
+        "cryptocurrency",
+        "remote_work_trends",
+        "gut_health",
+        "space_exploration"
+      ]
+    },
+    {
+      "slug": "advise",
+      "label": "Get advice",
+      "topics": [
+        "career_change",
+        "time_management",
+        "budget_planning",
+        "learning_new_skill",
+        "work_life_balance",
+        "public_speaking"
+      ]
+    },
+    {
+      "slug": "troubleshoot",
+      "label": "Troubleshoot a problem",
+      "topics": [
+        "slow_computer",
+        "poor_sleep",
+        "garden_pests",
+        "recipe_gone_wrong",
+        "wifi_issues",
+        "motivation_slump"
+      ]
+    },
+    {
+      "slug": "plan",
+      "label": "Plan something",
+      "topics": [
+        "road_trip",
+        "weekly_meals",
+        "study_schedule",
+        "home_move",
+        "fitness_routine",
+        "vacation_itinerary"
+      ]
+    }
+  ]
+}

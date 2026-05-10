@@ -1,0 +1,17 @@
+{
+  "min_sessions_before_shift": 2,
+  "max_sessions": 6,
+  "turns_per_conversation": {
+    "min": 3,
+    "max": 5
+  },
+  "shift_criteria": {
+    "noticeability_stability_window": 2,
+    "noticeability_max_variance": 1.0,
+    "preference_stability_window": 2,
+    "preference_max_variance": 1.5
+  },
+  "session_cooldown_hours": 48,
+  "session_expiry_days": 14,
+  "model": "claude-sonnet-4-20250514"
+}

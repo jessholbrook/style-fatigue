@@ -1,0 +1,51 @@
+{
+  "survey_type": "post_conversation",
+  "questions": [
+    {
+      "id": "notice_change",
+      "type": "likert",
+      "scale": 7,
+      "text": "Did you notice anything different about the AI's communication style in this conversation?",
+      "anchors": ["Not at all", "Extremely"],
+      "required": true
+    },
+    {
+      "id": "preference",
+      "type": "likert",
+      "scale": 7,
+      "text": "How much did you enjoy interacting with the AI in this conversation?",
+      "anchors": ["Not at all", "Very much"],
+      "required": true
+    },
+    {
+      "id": "naturalness",
+      "type": "likert",
+      "scale": 7,
+      "text": "How natural did the AI's responses feel?",
+      "anchors": ["Very unnatural", "Very natural"],
+      "required": true
+    },
+    {
+      "id": "effort",
+      "type": "likert",
+      "scale": 7,
+      "text": "How much effort did it take to understand the AI's responses?",
+      "anchors": ["No effort", "A lot of effort"],
+      "required": true
+    },
+    {
+      "id": "helpfulness",
+      "type": "likert",
+      "scale": 7,
+      "text": "How helpful were the AI's responses?",
+      "anchors": ["Not helpful", "Extremely helpful"],
+      "required": true
+    },
+    {
+      "id": "open_feedback",
+      "type": "free_text",
+      "text": "Any other thoughts about this conversation?",
+      "required": false
+    }
+  ]
+}

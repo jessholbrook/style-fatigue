@@ -1,0 +1,65 @@
+{
+  "survey_type": "exit",
+  "questions": [
+    {
+      "id": "overall_experience",
+      "type": "likert",
+      "scale": 7,
+      "text": "Overall, how would you rate your experience in this study?",
+      "anchors": ["Very negative", "Very positive"],
+      "required": true
+    },
+    {
+      "id": "noticed_changes",
+      "type": "multiple_choice",
+      "text": "Did you notice any changes in how the AI communicated across your sessions?",
+      "options": [
+        "No, it seemed the same throughout",
+        "I thought I noticed something but wasn't sure",
+        "Yes, I noticed a clear change"
+      ],
+      "required": true
+    },
+    {
+      "id": "change_description",
+      "type": "free_text",
+      "text": "If you noticed any changes, please describe what you observed.",
+      "required": false
+    },
+    {
+      "id": "preference_direction",
+      "type": "multiple_choice",
+      "text": "If the AI's style changed, which version did you prefer?",
+      "options": [
+        "I preferred the earlier style",
+        "I preferred the later style",
+        "No preference / didn't notice a change"
+      ],
+      "required": true
+    },
+    {
+      "id": "ai_usage_frequency",
+      "type": "multiple_choice",
+      "text": "How often do you typically use AI assistants (e.g., ChatGPT, Claude, Gemini)?",
+      "options": [
+        "A few times a month",
+        "A few times a week",
+        "Daily",
+        "Multiple times a day"
+      ],
+      "required": true
+    },
+    {
+      "id": "ai_tools_used",
+      "type": "free_text",
+      "text": "Which AI assistants do you use most often?",
+      "required": false
+    },
+    {
+      "id": "final_thoughts",
+      "type": "free_text",
+      "text": "Any final thoughts or feedback about the study?",
+      "required": false
+    }
+  ]
+}
