@@ -10,6 +10,7 @@ import {
 import type { Conversation, Message } from "../types";
 import IntentPicker from "../components/IntentPicker";
 import ChatWindow from "../components/ChatWindow";
+import { Button } from "@/components/ui/button";
 
 const MAX_TURNS = 5;
 
@@ -36,8 +37,8 @@ export default function ChatPage() {
     });
   }, [participant?.id]);
 
-  if (pLoading || sLoading) return <p>Loading...</p>;
-  if (pError || sError) return <p>Error: {pError || sError}</p>;
+  if (pLoading || sLoading) return <p className="text-muted-foreground">Loading...</p>;
+  if (pError || sError) return <p className="text-destructive">Error: {pError || sError}</p>;
   if (!participant?.consent_given_at) {
     navigate(`/${token}/consent`);
     return null;
@@ -82,25 +83,16 @@ export default function ChatPage() {
           currentTurns={conversation?.turn_count ?? 0}
         />
         {phase === "done" && (
-          <div style={{ textAlign: "center", marginTop: "1.5rem" }}>
-            <p style={{ marginBottom: "1rem" }}>Conversation complete. Please continue to the survey.</p>
-            <button
-              onClick={() => navigate(`/${token}/survey`)}
-              style={{
-                padding: "0.75rem 2rem",
-                backgroundColor: "var(--color-primary)",
-                color: "white",
-                border: "none",
-                borderRadius: "var(--radius)",
-              }}
-            >
+          <div className="text-center mt-6 space-y-4">
+            <p className="text-muted-foreground">Conversation complete. Please continue to the survey.</p>
+            <Button onClick={() => navigate(`/${token}/survey`)}>
               Continue to Survey
-            </button>
+            </Button>
           </div>
         )}
       </div>
     );
   }
 
-  return <p>Setting up your session...</p>;
+  return <p className="text-muted-foreground">Setting up your session...</p>;
 }

@@ -1,3 +1,5 @@
+import { cn } from "@/lib/utils";
+
 interface Props {
   scale: number;
   value: number | null;
@@ -8,35 +10,25 @@ interface Props {
 export default function LikertScale({ scale, value, onChange, anchors }: Props) {
   return (
     <div>
-      <div style={{ display: "flex", justifyContent: "space-between", gap: "0.25rem" }}>
+      <div className="flex justify-between gap-1">
         {Array.from({ length: scale }, (_, i) => i + 1).map((n) => (
           <button
             key={n}
+            type="button"
             onClick={() => onChange(n)}
-            style={{
-              width: "2.5rem",
-              height: "2.5rem",
-              borderRadius: "50%",
-              border: value === n ? "2px solid var(--color-primary)" : "1px solid var(--color-border)",
-              backgroundColor: value === n ? "var(--color-primary)" : "var(--color-surface)",
-              color: value === n ? "white" : "var(--color-text)",
-              fontWeight: value === n ? "bold" : "normal",
-            }}
+            className={cn(
+              "w-10 h-10 rounded-full border text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+              value === n
+                ? "border-primary bg-primary text-primary-foreground"
+                : "border-input bg-background text-foreground hover:bg-accent"
+            )}
           >
             {n}
           </button>
         ))}
       </div>
       {anchors && (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginTop: "0.25rem",
-            fontSize: "0.75rem",
-            color: "var(--color-text-secondary)",
-          }}
-        >
+        <div className="flex justify-between mt-1 text-xs text-muted-foreground">
           <span>{anchors[0]}</span>
           <span>{anchors[1]}</span>
         </div>

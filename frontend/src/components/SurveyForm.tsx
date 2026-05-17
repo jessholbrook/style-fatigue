@@ -1,6 +1,9 @@
 import { useState } from "react";
 import type { SurveyQuestion } from "../types";
 import LikertScale from "./LikertScale";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 
 interface Props {
   questions: SurveyQuestion[];
@@ -26,30 +29,28 @@ export default function SurveyForm({ questions, onSubmit }: Props) {
   }
 
   return (
-    <form onSubmit={handleSubmit} style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+    <form onSubmit={handleSubmit} className="flex flex-col gap-8">
       {questions.map((q) => (
         <div key={q.id}>
-          <label style={{ display: "block", marginBottom: "0.75rem", fontWeight: 500 }}>
+          <Label className="block mb-3 text-base font-medium">
             {q.text}
             {q.required === false && (
-              <span style={{ color: "var(--color-text-secondary)", fontWeight: "normal" }}>
-                {" "}(optional)
-              </span>
+              <span className="text-muted-foreground font-normal"> (optional)</span>
             )}
-          </label>
+          </Label>
 
           {q.type === "likert" && (
             <LikertScale
               scale={q.scale ?? 7}
-              value={responses[q.id] as number | null ?? null}
+              value={(responses[q.id] as number | null) ?? null}
               onChange={(v) => handleChange(q.id, v)}
               anchors={q.anchors}
             />
           )}
 
           {q.type === "free_text" && (
-            <textarea
-              value={q.id === "open_feedback" ? freeText : (responses[q.id] as string ?? "")}
+            <Textarea
+              value={q.id === "open_feedback" ? freeText : ((responses[q.id] as string) ?? "")}
               onChange={(e) => {
                 if (q.id === "open_feedback") {
                   setFreeText(e.target.value);
@@ -58,31 +59,14 @@ export default function SurveyForm({ questions, onSubmit }: Props) {
                 }
               }}
               rows={3}
-              style={{
-                width: "100%",
-                padding: "0.75rem",
-                border: "1px solid var(--color-border)",
-                borderRadius: "var(--radius)",
-                resize: "vertical",
-              }}
             />
           )}
         </div>
       ))}
 
-      <button
-        type="submit"
-        style={{
-          padding: "0.75rem 2rem",
-          backgroundColor: "var(--color-primary)",
-          color: "white",
-          border: "none",
-          borderRadius: "var(--radius)",
-          alignSelf: "flex-end",
-        }}
-      >
+      <Button type="submit" className="self-end">
         Submit
-      </button>
+      </Button>
     </form>
   );
 }

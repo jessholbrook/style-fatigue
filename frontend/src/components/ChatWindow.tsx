@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import type { Message } from "../types";
 import MessageBubble from "./MessageBubble";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 interface Props {
   messages: Message[];
@@ -34,59 +36,36 @@ export default function ChatWindow({
   }
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
-      <div
-        style={{
-          flex: 1,
-          overflowY: "auto",
-          padding: "1rem 0",
-          minHeight: "300px",
-        }}
-      >
+    <div className="flex flex-col h-full">
+      <div className="flex-1 overflow-y-auto py-4 min-h-[300px]">
         {messages.map((msg, i) => (
           <MessageBubble key={i} message={msg} />
         ))}
         {loading && (
-          <div style={{ color: "var(--color-text-secondary)", padding: "0.5rem" }}>
+          <div className="text-muted-foreground px-2 py-1 text-sm">
             Thinking...
           </div>
         )}
         <div ref={messagesEndRef} />
       </div>
 
-      <div style={{ padding: "0.5rem 0", color: "var(--color-text-secondary)", fontSize: "0.875rem" }}>
+      <div className="py-2 text-sm text-muted-foreground">
         Turn {currentTurns} of {maxTurns}
       </div>
 
-      <form onSubmit={handleSubmit} style={{ display: "flex", gap: "0.5rem" }}>
-        <input
-          type="text"
+      <form onSubmit={handleSubmit} className="flex gap-2">
+        <Input
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder={disabled ? "Conversation complete" : "Type your message..."}
           disabled={disabled || loading}
-          style={{
-            flex: 1,
-            padding: "0.75rem",
-            border: "1px solid var(--color-border)",
-            borderRadius: "var(--radius)",
-            outline: "none",
-          }}
         />
-        <button
+        <Button
           type="submit"
           disabled={disabled || loading || !input.trim()}
-          style={{
-            padding: "0.75rem 1.5rem",
-            backgroundColor: "var(--color-primary)",
-            color: "white",
-            border: "none",
-            borderRadius: "var(--radius)",
-            opacity: disabled || loading || !input.trim() ? 0.5 : 1,
-          }}
         >
           Send
-        </button>
+        </Button>
       </form>
     </div>
   );

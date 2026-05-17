@@ -1,3 +1,6 @@
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+
 interface IntentItem {
   slug: string;
   label: string;
@@ -12,39 +15,31 @@ interface Props {
 export default function IntentPicker({ intents, onSelect }: Props) {
   return (
     <div>
-      <h2 style={{ marginBottom: "1rem" }}>What would you like to do?</h2>
-      <p style={{ color: "var(--color-text-secondary)", marginBottom: "1.5rem" }}>
+      <h2 className="text-2xl font-semibold mb-2">What would you like to do?</h2>
+      <p className="text-muted-foreground mb-6">
         Choose a task and topic for this session's conversation.
       </p>
-      <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+      <div className="flex flex-col gap-4">
         {intents.map((intent) => (
-          <div
-            key={intent.slug}
-            style={{
-              border: "1px solid var(--color-border)",
-              borderRadius: "var(--radius)",
-              padding: "1rem",
-            }}
-          >
-            <h3 style={{ marginBottom: "0.5rem" }}>{intent.label}</h3>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem" }}>
-              {intent.topics.map((topic) => (
-                <button
-                  key={topic}
-                  onClick={() => onSelect(intent.slug, topic)}
-                  style={{
-                    padding: "0.5rem 1rem",
-                    backgroundColor: "var(--color-surface)",
-                    border: "1px solid var(--color-border)",
-                    borderRadius: "var(--radius)",
-                    fontSize: "0.875rem",
-                  }}
-                >
-                  {topic.replace(/_/g, " ")}
-                </button>
-              ))}
-            </div>
-          </div>
+          <Card key={intent.slug}>
+            <CardHeader className="pb-3">
+              <CardTitle className="text-lg">{intent.label}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-wrap gap-2">
+                {intent.topics.map((topic) => (
+                  <Button
+                    key={topic}
+                    variant="outline"
+                    size="sm"
+                    onClick={() => onSelect(intent.slug, topic)}
+                  >
+                    {topic.replace(/_/g, " ")}
+                  </Button>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
         ))}
       </div>
     </div>

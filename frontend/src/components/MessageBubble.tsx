@@ -1,25 +1,15 @@
 import type { Message } from "../types";
+import { cn } from "@/lib/utils";
 
 export default function MessageBubble({ message }: { message: Message }) {
   const isUser = message.role === "user";
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: isUser ? "flex-end" : "flex-start",
-        marginBottom: "0.75rem",
-      }}
-    >
+    <div className={cn("flex mb-3", isUser ? "justify-end" : "justify-start")}>
       <div
-        style={{
-          maxWidth: "80%",
-          padding: "0.75rem 1rem",
-          borderRadius: "var(--radius)",
-          backgroundColor: isUser
-            ? "var(--color-user-bubble)"
-            : "var(--color-assistant-bubble)",
-          whiteSpace: "pre-wrap",
-        }}
+        className={cn(
+          "max-w-[80%] rounded-lg px-4 py-3 whitespace-pre-wrap text-sm",
+          isUser ? "bg-user" : "bg-assistant"
+        )}
       >
         {message.content}
       </div>

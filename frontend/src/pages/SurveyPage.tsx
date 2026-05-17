@@ -27,12 +27,12 @@ export default function SurveyPage() {
     navigate(`/${token}/complete`);
   }
 
-  if (loading) return <p>Loading survey...</p>;
+  if (loading) return <p className="text-muted-foreground">Loading survey...</p>;
 
   return (
     <div>
-      <h1 style={{ marginBottom: "0.5rem" }}>Post-Conversation Survey</h1>
-      <p style={{ color: "var(--color-text-secondary)", marginBottom: "2rem" }}>
+      <h1 className="text-3xl font-semibold mb-2">Post-Conversation Survey</h1>
+      <p className="text-muted-foreground mb-8">
         Please answer the following questions about the conversation you just had.
       </p>
       <SurveyForm questions={questions} onSubmit={handleSubmit} />

@@ -2,14 +2,7 @@ import type { ReactNode } from "react";
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
-    <div
-      style={{
-        maxWidth: "var(--max-width)",
-        margin: "0 auto",
-        padding: "2rem 1rem",
-        minHeight: "100vh",
-      }}
-    >
+    <div className="mx-auto max-w-3xl min-h-screen px-4 py-8">
       {children}
     </div>
   );
