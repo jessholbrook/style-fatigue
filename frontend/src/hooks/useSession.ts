@@ -1,36 +1,24 @@
 import { useState } from "react";
-import { startSession, completeSession } from "../api/client";
-import type { ExperimentSession } from "../types";
+import { startSession } from "../api/client";
+import type { SessionStart } from "../types";
+
+export const SESSION_STORAGE_KEY = "current_session_id";
 
 export function useSession(token: string) {
-  const [session, setSession] = useState<ExperimentSession | null>(null);
+  const [sessionStart, setSessionStart] = useState<SessionStart | null>(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
-  async function begin() {
+  async function begin(): Promise<SessionStart> {
     setLoading(true);
-    setError(null);
     try {
-      const s = await startSession(token);
-      setSession(s);
-      return s;
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "Failed to start session");
-      return null;
+      const start = await startSession(token);
+      setSessionStart(start);
+      sessionStorage.setItem(SESSION_STORAGE_KEY, start.session.id);
+      return start;
     } finally {
       setLoading(false);
     }
   }
 
-  async function complete() {
-    if (!session) return;
-    try {
-      const s = await completeSession(token, session.id);
-      setSession(s);
-    } catch (e) {
-      setError(e instanceof Error ? e.message : "Failed to complete session");
-    }
-  }
-
-  return { session, loading, error, begin, complete };
+  return { sessionStart, session: sessionStart?.session ?? null, loading, begin };
 }

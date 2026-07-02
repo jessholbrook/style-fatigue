@@ -1,11 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-
-interface IntentItem {
-  slug: string;
-  label: string;
-  topics: string[];
-}
+import type { IntentItem } from "../types";
 
 interface Props {
   intents: IntentItem[];

@@ -1,6 +1,11 @@
 from functools import lru_cache
+from pathlib import Path
 
 from pydantic_settings import BaseSettings
+
+# backend/app/config.py -> parents[2] is the repo root locally and / in the
+# backend container, where compose mounts ./experiment at /experiment.
+REPO_ROOT = Path(__file__).resolve().parents[2]
 
 
 class Settings(BaseSettings):
@@ -9,7 +14,7 @@ class Settings(BaseSettings):
     SECRET_KEY: str = "change-me-in-production"
     ENVIRONMENT: str = "development"
     FRONTEND_URL: str = "http://localhost:5173"
-    EXPERIMENT_CONFIG_PATH: str = "/experiment"
+    EXPERIMENT_CONFIG_PATH: str = str(REPO_ROOT / "experiment")
 
     model_config = {"env_file": ".env", "extra": "ignore"}
 
