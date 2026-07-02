@@ -52,6 +52,27 @@ npm run dev
 cd backend && alembic upgrade head
 ```
 
+## Deployment (Railway)
+
+Production runs as a single service: the root `Dockerfile` builds the frontend and the
+FastAPI backend serves it (SPA fallback), with migrations applied on boot.
+
+1. Create a Railway project from this repo — `railway.toml` configures the build and `/api/health` healthcheck
+2. Add the PostgreSQL addon; Railway injects `DATABASE_URL`
+3. Set `ANTHROPIC_API_KEY` and a real `SECRET_KEY` (it seeds condition randomization — set it once before enrolling anyone and never change it mid-study)
+
+## Piloting checklist
+
+Before recruiting:
+
+```bash
+# Manipulation check: are the three style profiles perceptibly distinct?
+ANTHROPIC_API_KEY=... python analysis/scripts/preview_profiles.py
+
+# Sample size: prints power tables for the detection-rate contrast
+python analysis/scripts/power_analysis.py
+```
+
 ## Compensation
 
 TBD — placeholder for participant compensation details.
