@@ -1,7 +1,10 @@
 from contextlib import asynccontextmanager
+from pathlib import Path
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 
 from app.config import get_settings
 from app.middleware.timing import TimingMiddleware
@@ -37,3 +40,16 @@ app.include_router(study.router, prefix="/api")
 @app.get("/api/health")
 def health_check():
     return {"status": "ok"}
+
+
+# Production single-service mode: serve the built frontend. /api routes are
+# registered above and take precedence; everything else falls back to the SPA.
+_dist = Path(get_settings().FRONTEND_DIST_PATH) if get_settings().FRONTEND_DIST_PATH else None
+if _dist and _dist.exists():
+    app.mount("/assets", StaticFiles(directory=_dist / "assets"), name="assets")
+
+    @app.get("/{path:path}", include_in_schema=False)
+    def spa_fallback(path: str):
+        if path.startswith("api"):
+            raise HTTPException(status_code=404)
+        return FileResponse(_dist / "index.html")

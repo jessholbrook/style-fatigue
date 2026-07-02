@@ -15,6 +15,8 @@ class Settings(BaseSettings):
     ENVIRONMENT: str = "development"
     FRONTEND_URL: str = "http://localhost:5173"
     EXPERIMENT_CONFIG_PATH: str = str(REPO_ROOT / "experiment")
+    # When set (production), FastAPI serves the built frontend from this dir
+    FRONTEND_DIST_PATH: str = ""
 
     model_config = {"env_file": ".env", "extra": "ignore"}
 
