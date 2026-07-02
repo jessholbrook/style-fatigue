@@ -4,7 +4,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import get_settings
-from app.routers import conversations, participants, sessions, surveys
+from app.middleware.timing import TimingMiddleware
+from app.routers import conversations, participants, sessions, study, surveys
 
 
 @asynccontextmanager
@@ -17,6 +18,7 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(title="Style Fatigue", lifespan=lifespan)
 
+app.add_middleware(TimingMiddleware)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[get_settings().FRONTEND_URL],
@@ -29,6 +31,7 @@ app.include_router(participants.router, prefix="/api")
 app.include_router(sessions.router, prefix="/api")
 app.include_router(conversations.router, prefix="/api")
 app.include_router(surveys.router, prefix="/api")
+app.include_router(study.router, prefix="/api")
 
 
 @app.get("/api/health")

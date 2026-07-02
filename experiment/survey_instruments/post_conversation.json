@@ -1,28 +1,53 @@
 {
   "survey_type": "post_conversation",
+  "note": "The style item (notice_change) is deliberately embedded among distractor ratings and worded non-comparatively to avoid priming participants to hunt for style changes. Keep the notice_change and preference IDs stable — the shift trigger and extracted DB columns depend on them.",
   "questions": [
+    {
+      "id": "helpful",
+      "type": "likert",
+      "scale": 7,
+      "text": "How helpful were the AI's responses?",
+      "anchors": ["Not at all helpful", "Extremely helpful"],
+      "required": true
+    },
+    {
+      "id": "accurate",
+      "type": "likert",
+      "scale": 7,
+      "text": "How accurate did the information in the responses seem?",
+      "anchors": ["Not at all accurate", "Extremely accurate"],
+      "required": true
+    },
+    {
+      "id": "clarity",
+      "type": "likert",
+      "scale": 7,
+      "text": "How clear and easy to follow were the responses?",
+      "anchors": ["Very unclear", "Very clear"],
+      "required": true
+    },
+    {
+      "id": "speed",
+      "type": "likert",
+      "scale": 7,
+      "text": "How satisfied were you with how quickly the AI responded?",
+      "anchors": ["Very dissatisfied", "Very satisfied"],
+      "required": true
+    },
+    {
+      "id": "trust",
+      "type": "likert",
+      "scale": 7,
+      "text": "How much did you trust the AI's responses?",
+      "anchors": ["Not at all", "Completely"],
+      "required": true
+    },
     {
       "id": "notice_change",
       "type": "likert",
       "scale": 7,
-      "text": "Did you notice anything different about the AI's communication style in this conversation?",
-      "anchors": ["Not at all", "Extremely"],
-      "required": true
-    },
-    {
-      "id": "preference",
-      "type": "likert",
-      "scale": 7,
-      "text": "How much did you enjoy interacting with the AI in this conversation?",
+      "text": "How much did the AI's way of writing stand out to you during this conversation?",
       "anchors": ["Not at all", "Very much"],
-      "required": true
-    },
-    {
-      "id": "naturalness",
-      "type": "likert",
-      "scale": 7,
-      "text": "How natural did the AI's responses feel?",
-      "anchors": ["Very unnatural", "Very natural"],
       "required": true
     },
     {
@@ -34,11 +59,11 @@
       "required": true
     },
     {
-      "id": "helpfulness",
+      "id": "preference",
       "type": "likert",
       "scale": 7,
-      "text": "How helpful were the AI's responses?",
-      "anchors": ["Not helpful", "Extremely helpful"],
+      "text": "Overall, how satisfied were you with this conversation?",
+      "anchors": ["Very dissatisfied", "Very satisfied"],
       "required": true
     },
     {

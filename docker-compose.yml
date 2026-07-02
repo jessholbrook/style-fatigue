@@ -9,23 +9,36 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U stylefatigue"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
 
   backend:
     build: ./backend
     ports:
       - "8000:8000"
     env_file: .env
+    environment:
+      # Inside the compose network Postgres is at `db`, not localhost
+      DATABASE_URL: postgresql://stylefatigue:stylefatigue@db:5432/stylefatigue
+      EXPERIMENT_CONFIG_PATH: /experiment
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     volumes:
       - ./backend:/app
       - ./experiment:/experiment
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    command: sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
 
   frontend:
     build: ./frontend
     ports:
       - "5173:5173"
+    environment:
+      # Vite's proxy runs inside this container; the backend is at `backend`
+      VITE_API_URL: http://backend:8000
     depends_on:
       - backend
     volumes:

@@ -18,8 +18,5 @@ export function useParticipant() {
       .finally(() => setLoading(false));
   }, [token]);
 
-  return { participant, token: token ?? "", loading, error, refetch: () => {
-    if (!token) return;
-    getParticipant(token).then(setParticipant);
-  }};
+  return { participant, token: token ?? "", loading, error };
 }

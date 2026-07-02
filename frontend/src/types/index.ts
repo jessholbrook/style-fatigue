@@ -1,20 +1,23 @@
 export interface Participant {
   id: string;
   token: string;
-  condition: string | null;
   created_at: string;
   consent_given_at: string | null;
   is_active: boolean;
-  session_count: number;
+  completed_sessions: number;
 }
 
 export interface ExperimentSession {
   id: string;
   session_number: number;
-  style_profile: string;
   started_at: string;
   completed_at: string | null;
-  is_shift_session: boolean;
+}
+
+export interface SessionStart {
+  session: ExperimentSession;
+  conversation: Conversation | null;
+  resumed: boolean;
 }
 
 export interface Message {
@@ -48,13 +51,20 @@ export interface SurveyInstrument {
   questions: SurveyQuestion[];
 }
 
-export interface IntentOption {
-  slug: string;
-  label: string;
-  topics: TopicOption[];
+export interface SurveySubmitResult {
+  id: string;
+  submitted_at: string;
+  study_complete: boolean;
 }
 
-export interface TopicOption {
+export interface IntentItem {
   slug: string;
   label: string;
+  topics: string[];
+}
+
+export interface StudyConfig {
+  max_sessions: number;
+  turns_per_conversation: { min: number; max: number };
+  session_cooldown_hours: number;
 }

@@ -18,7 +18,14 @@ def build_system_prompt(profile: dict) -> str:
     return "\n\n".join(parts)
 
 
-def get_claude_response(messages: list[dict], style_profile: str) -> str:
+def get_claude_response(messages: list[dict], style_profile: str) -> dict:
+    """Call Claude with the profile's system prompt and few-shot examples.
+
+    Few-shot examples are prepended as real message turns — the style
+    manipulation depends on them. Returns {"text", "stop_reason"} so callers
+    can log truncation (stop_reason "max_tokens" is a condition-correlated
+    quality artifact if it goes unmonitored).
+    """
     settings = get_settings()
     profile = load_style_profile(style_profile)
     config_path = Path(settings.EXPERIMENT_CONFIG_PATH) / "config.json"
@@ -26,15 +33,18 @@ def get_claude_response(messages: list[dict], style_profile: str) -> str:
 
     system_prompt = build_system_prompt(profile)
 
-    api_messages = []
-    for msg in messages:
-        api_messages.append({"role": msg["role"], "content": msg["content"]})
+    api_messages = [
+        {"role": m["role"], "content": m["content"]}
+        for m in profile.get("few_shot_examples", [])
+    ]
+    api_messages += [{"role": m["role"], "content": m["content"]} for m in messages]
 
     client = anthropic.Anthropic(api_key=settings.ANTHROPIC_API_KEY)
     response = client.messages.create(
         model=experiment_config.get("model", "claude-sonnet-4-20250514"),
-        max_tokens=1024,
+        max_tokens=experiment_config.get("max_tokens", 2048),
+        temperature=experiment_config.get("temperature", 1.0),
         system=system_prompt,
         messages=api_messages,
     )
-    return response.content[0].text
+    return {"text": response.content[0].text, "stop_reason": response.stop_reason}

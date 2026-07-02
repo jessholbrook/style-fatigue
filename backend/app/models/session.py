@@ -1,7 +1,6 @@
 import uuid
 
-from sqlalchemy import Boolean, Column, DateTime, ForeignKey, Integer, String, func
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import Boolean, Column, DateTime, ForeignKey, Integer, String, Uuid, func
 from sqlalchemy.orm import relationship
 
 from app.database import Base
@@ -10,8 +9,8 @@ from app.database import Base
 class ExperimentSession(Base):
     __tablename__ = "sessions"
 
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    participant_id = Column(UUID(as_uuid=True), ForeignKey("participants.id"), nullable=False)
+    id = Column(Uuid, primary_key=True, default=uuid.uuid4)
+    participant_id = Column(Uuid, ForeignKey("participants.id"), nullable=False)
     session_number = Column(Integer, nullable=False)
     style_profile = Column(String(20), nullable=False)
     started_at = Column(DateTime(timezone=True), server_default=func.now())

@@ -8,14 +8,15 @@ class ParticipantCreate(BaseModel):
     metadata_json: dict | None = None
 
 
+# Participant-facing: deliberately excludes condition/shift_eligible_at —
+# participants must not be able to unblind themselves via the network tab.
 class ParticipantResponse(BaseModel):
     id: UUID
     token: str
-    condition: str | None
     created_at: datetime
     consent_given_at: datetime | None
     is_active: bool
-    session_count: int = 0
+    completed_sessions: int = 0
 
     model_config = {"from_attributes": True}
 

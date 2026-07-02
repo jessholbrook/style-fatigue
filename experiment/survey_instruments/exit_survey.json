@@ -1,5 +1,6 @@
 {
-  "survey_type": "exit",
+  "survey_type": "exit_survey",
+  "note": "Funnel structure: open-ended first, then prompted, then explicit. Question order matters — do not reorder.",
   "questions": [
     {
       "id": "overall_experience",
@@ -10,9 +11,15 @@
       "required": true
     },
     {
-      "id": "noticed_changes",
+      "id": "open_changes",
+      "type": "free_text",
+      "text": "Thinking back across all of your sessions, did anything about the AI seem to change over time? Describe anything you noticed, however small.",
+      "required": false
+    },
+    {
+      "id": "noticed_style_change",
       "type": "multiple_choice",
-      "text": "Did you notice any changes in how the AI communicated across your sessions?",
+      "text": "Did you notice any changes in HOW the AI communicated — its style, tone, or formatting — across your sessions?",
       "options": [
         "No, it seemed the same throughout",
         "I thought I noticed something but wasn't sure",
@@ -23,25 +30,27 @@
     {
       "id": "change_description",
       "type": "free_text",
-      "text": "If you noticed any changes, please describe what you observed.",
+      "text": "If you noticed any changes in the AI's communication, please describe what you observed and roughly when it happened.",
       "required": false
     },
     {
       "id": "preference_direction",
       "type": "multiple_choice",
-      "text": "If the AI's style changed, which version did you prefer?",
+      "text": "For some participants, the AI's communication style changed partway through the study. If you experienced a change, which did you prefer?",
       "options": [
         "I preferred the earlier style",
         "I preferred the later style",
-        "No preference / didn't notice a change"
+        "No preference between them",
+        "I didn't notice a change"
       ],
       "required": true
     },
     {
       "id": "ai_usage_frequency",
       "type": "multiple_choice",
-      "text": "How often do you typically use AI assistants (e.g., ChatGPT, Claude, Gemini)?",
+      "text": "Outside of this study, how often do you use AI assistants (e.g., ChatGPT, Claude, Gemini)?",
       "options": [
+        "Never or rarely",
         "A few times a month",
         "A few times a week",
         "Daily",
