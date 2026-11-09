@@ -127,3 +127,22 @@ def test_events_endpoint_records(client, fast_config, mock_claude):
         json={"event_type": "page_view", "payload": {"page": "landing"}},
     )
     assert resp.status_code == 204
+
+
+def test_enrollment_pause_blocks_new_participants_only(client, fast_config, mock_claude, monkeypatch):
+    token = enroll(client)  # enrolled while open
+
+    closed = dict(fast_config, enrollment_open=False)
+    monkeypatch.setattr("app.services.experiment.load_experiment_config", lambda: closed)
+
+    resp = client.post("/api/participants", json={})
+    assert resp.status_code == 503
+    assert resp.json()["detail"]["reason"] == "enrollment_closed"
+
+    # Already-enrolled participants can still run their sessions
+    assert client.post(f"/api/participants/{token}/sessions").status_code == 200
+
+
+def test_shipped_config_has_recruitment_paused(client):
+    resp = client.post("/api/participants", json={})
+    assert resp.status_code == 503
