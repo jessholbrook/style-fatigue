@@ -51,6 +51,7 @@ def fast_config(monkeypatch):
 
     def patched():
         config = dict(real)
+        config["enrollment_open"] = True
         config["session_cooldown_hours"] = 0
         config["min_sessions_before_shift"] = 1
         return config

@@ -41,6 +41,10 @@ def to_participant_response(participant: Participant, db: Session) -> Participan
 
 @router.post("/participants", response_model=ParticipantResponse)
 def create_participant(data: ParticipantCreate, db: Session = Depends(get_db)):
+    # Recruitment pause: blocks new enrollment only. Existing participants keep
+    # their links and can finish their remaining sessions.
+    if not experiment_service.load_experiment_config().get("enrollment_open", True):
+        raise HTTPException(status_code=503, detail={"reason": "enrollment_closed"})
     condition = experiment_service.assign_condition(db)
     participant = Participant(
         token=secrets.token_urlsafe(32),

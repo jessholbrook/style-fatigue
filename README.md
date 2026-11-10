@@ -2,6 +2,8 @@
 
 An experiment investigating how quickly and why people habituate to AI model language style updates.
 
+> **Status: recruitment paused.** The research plan has been re-sequenced: an always-on in-product measure (Sprig) runs first to find which style dimensions people actually notice, and this controlled study runs afterward on those dimensions. See [docs/measurement-approach.md](docs/measurement-approach.md). New enrollment is blocked by `"enrollment_open": false` in `experiment/config.json` (`POST /api/participants` returns 503); anyone already enrolled can finish. Flip it to `true` to reopen.
+
 ## Overview
 
 This study examines which style dimensions (formulaicness, repetition, punctuation, formality, formatting, slang, trends) influence habituation speed, which habituations are beneficial vs. harmful, and how to predict them.
@@ -58,6 +60,7 @@ analysis/
   scripts/             export_data, preview_profiles, power_analysis
   notebooks/           Data-quality and habituation-curve notebooks
   output/              Generated tables (e.g. power_analysis.md)
+docs/                  Research design memos (measurement-approach.md)
 .github/workflows/     CI (ci.yml)
 Dockerfile             Production image (builds frontend, served by backend)
 railway.toml           Railway deployment config

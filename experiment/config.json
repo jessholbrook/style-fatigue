@@ -1,5 +1,10 @@
 {
-  "conditions": ["control", "variant_a", "variant_b"],
+  "enrollment_open": false,
+  "conditions": [
+    "control",
+    "variant_a",
+    "variant_b"
+  ],
   "min_sessions_before_shift": 2,
   "max_sessions": 6,
   "turns_per_conversation": {
