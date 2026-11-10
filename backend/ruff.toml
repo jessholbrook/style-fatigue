@@ -1,0 +1,5 @@
+# Pin the rule set explicitly. Without this, ruff's defaults change between
+# releases (0.16+ enabled import sorting, B008, UP017, ...) and lint breaks on
+# a fresh install with no code change.
+[lint]
+select = ["E4", "E7", "E9", "F"]
